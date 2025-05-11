@@ -1,4 +1,4 @@
-package dev.amraleth.afr.item;
+package dev.amraleth.afo.item;
 
 import org.bukkit.inventory.ItemStack;
 
@@ -15,7 +15,8 @@ public class BaseRodItems {
         return new FishingRodBuilder()
                 .setName("Harald's Old Rod")
                 .setRarity(RodRarity.COMMON)
-                .addAttribute(FishingAttribute.FISHING_SPEED, 10)
+                //.addAttribute(FishingAttribute.FISHING_SPEED, 25)
+                .addAttribute(FishingAttribute.FISHING_SPEED, 25)
                 .addAttribute(FishingAttribute.TRESSURE_CHANCE, 2)
                 .addAttribute(FishingAttribute.MULTI_CATCH, 1)
                 .addLore(List.of(

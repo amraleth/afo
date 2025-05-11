@@ -1,7 +1,8 @@
-package dev.amraleth.afr.fishing;
+package dev.amraleth.afo.fishing;
 
-import dev.amraleth.afr.AfoPlugin;
-import dev.amraleth.afr.event.ReelInEvent;
+import dev.amraleth.afo.AfoPlugin;
+import dev.amraleth.afo.event.ReelInEvent;
+import dev.amraleth.afo.item.FishingAttribute;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.bossbar.BossBar;
@@ -14,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a fishing loop that happens after a rod has been cast
@@ -95,6 +97,20 @@ public class FishingLoop {
 
         this.isActive = true;
 
+        Map<FishingAttribute, Integer> attributes = FishingAttribute.getAttributesFromItem(this.rodItemStack);
+
+        int fishingSpeed = 0;
+        if (attributes.containsKey(FishingAttribute.FISHING_SPEED)) {
+            fishingSpeed += attributes.get(FishingAttribute.FISHING_SPEED);
+        }
+
+        double timeToFull = 10.0 - (Math.min(fishingSpeed, 500) / 500.0) * 7.5;
+
+        float progressDelta = (float)(0.1 / timeToFull);
+
+        AfoPlugin.sendDebugMessage("Player {} is fishing with timeToFull {} and progressDelta {}.",
+                this.player.getName(), timeToFull, progressDelta);
+
         this.runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -102,28 +118,31 @@ public class FishingLoop {
                     stopFishingLoop();
                     return;
                 }
+
                 if (increasing) {
-                    progress += 0.02f;
+                    progress += progressDelta;
                     if (progress >= 1.0f) {
                         progress = 1.0f;
                         increasing = false;
                     }
                 } else {
-                    progress -= 0.02f;
+                    progress -= progressDelta;
                     if (progress <= 0.0f) {
                         progress = 0.0f;
                         increasing = true;
                     }
                 }
+
                 if (progress >= 0.45f && progress <= 0.55f) {
                     player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.2f);
                 }
+
                 bossBar.progress(progress);
-                bossBarTwo.progress(1 - progress);
+                bossBarTwo.progress(1.0f - progress);
             }
         };
 
-        this.runnable.runTaskTimer(this.afoPlugin, 0L, 2L);
+        this.runnable.runTaskTimer(this.afoPlugin, 0L, 2L); // every 2 ticks = 0.1s
     }
 
     /**

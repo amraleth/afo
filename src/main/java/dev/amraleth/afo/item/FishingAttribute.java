@@ -1,6 +1,6 @@
-package dev.amraleth.afr.item;
+package dev.amraleth.afo.item;
 
-import dev.amraleth.afr.AfoPlugin;
+import dev.amraleth.afo.AfoPlugin;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.NamespacedKey;
@@ -9,7 +9,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
 import java.util.Arrays;
@@ -27,22 +26,22 @@ public enum FishingAttribute {
     /**
      * Decreases the duration of the quicktime event
      */
-    FISHING_SPEED(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_fishing_speed"), "Fishing Speed", false),
+    FISHING_SPEED(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_fishing_speed"), "Fishing Speed", false, 500),
 
     /**
-     * Increases the chance for rare creatures to spawn
+     * Increases the odds for rare creatures to spawn
      */
-    LURE_OF_THE_DEEP(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_lure_of_the_deep"), "Lure of the Deep", false),
+    LURE_OF_THE_DEEP(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_lure_of_the_deep"), "Lure of the Deep", true, 100),
 
     /**
      * Increases the odds to finding rare sea creatures
      */
-    TRESSURE_CHANCE(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_tressure_chance"), "Tressure Chance", true),
+    TRESSURE_CHANCE(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_tressure_chance"), "Tressure Chance", true, 100),
 
     /**
      * Increases the odds to catch two times with one hook
      */
-    MULTI_CATCH(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_multi_catch"), "Multicatch", true);
+    MULTI_CATCH(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_multi_catch"), "Multicatch", true, 100);
 
     /**
      * The key under which the attribute is stored
@@ -60,14 +59,20 @@ public enum FishingAttribute {
     private final boolean percent;
 
     /**
+     * The cap of this stat
+     */
+    private final int max;
+
+    /**
      * Gets all attributes from an {@link ItemStack}
      *
      * @param itemStack The ItemStack to get attributes from
      * @return An unmodifiable map of all available attributes in the form of attribute <-> value pairs. If an attribute
-     * was not found on the item, 0 is returned for it.
+     * was not found on the item, 0 is returned for it. If no {@link ItemMeta} was found on the item, an empty map is
+     * returned.
      */
-    public static @Nullable @Unmodifiable Map<FishingAttribute, Integer> getAttributesFromItem(@NotNull ItemStack itemStack) {
-        if (!itemStack.hasItemMeta()) return null;
+    public static @NotNull @Unmodifiable Map<FishingAttribute, Integer> getAttributesFromItem(@NotNull ItemStack itemStack) {
+        if (!itemStack.hasItemMeta()) return new HashMap<>();
         PersistentDataContainer persistentDataContainer = itemStack.getItemMeta().getPersistentDataContainer();
 
         Map<FishingAttribute, Integer> attributes = new HashMap<>();

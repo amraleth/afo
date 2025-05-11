@@ -1,6 +1,6 @@
-package dev.amraleth.afr.item;
+package dev.amraleth.afo.item;
 
-import dev.amraleth.afr.AfoPlugin;
+import dev.amraleth.afo.AfoPlugin;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;

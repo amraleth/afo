@@ -1,7 +1,7 @@
-package dev.amraleth.afr.fishing;
+package dev.amraleth.afo.fishing;
 
-import dev.amraleth.afr.AfoPlugin;
-import dev.amraleth.afr.item.FishingAttribute;
+import dev.amraleth.afo.AfoPlugin;
+import dev.amraleth.afo.item.FishingAttribute;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

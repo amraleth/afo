@@ -1,4 +1,4 @@
-package dev.amraleth.afr.event;
+package dev.amraleth.afo.event;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

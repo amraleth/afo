@@ -1,6 +1,6 @@
-package dev.amraleth.afr;
+package dev.amraleth.afo;
 
-import dev.amraleth.afr.listener.FishingListener;
+import dev.amraleth.afo.listener.FishingListener;
 import lombok.Getter;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;

@@ -1,10 +1,10 @@
-package dev.amraleth.afr.listener;
+package dev.amraleth.afo.listener;
 
-import dev.amraleth.afr.AfoPlugin;
-import dev.amraleth.afr.event.ReelInEvent;
-import dev.amraleth.afr.fishing.FishingLoop;
-import dev.amraleth.afr.fishing.FishingReward;
-import dev.amraleth.afr.item.BaseRodItems;
+import dev.amraleth.afo.AfoPlugin;
+import dev.amraleth.afo.event.ReelInEvent;
+import dev.amraleth.afo.fishing.FishingLoop;
+import dev.amraleth.afo.fishing.FishingReward;
+import dev.amraleth.afo.item.BaseRodItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
