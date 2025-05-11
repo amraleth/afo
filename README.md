@@ -1,3 +1,3 @@
-# Amraleth's Fishing Revamp (Afr)
-Afr is a Paper plugin that aims at revamping the entirety of Minecraft's vanilla fishing mechanic, adding new mobs, 
-mechanics and fish to catch.
+# Amraleth's Fishing Overhaul (Afo)
+*Amraleth's Fishing Overhaul* is a 1.21.5 paper plugin that aims at overhauling Minecraft's vanilla fishing system, by
+adding new rods, attributes, creatures and tressures, as well as quests and achievements.
