@@ -1,0 +1,7 @@
+main: dev.amraleth.afr.AfrPlugin
+name: Afr
+author: Amraleth
+description: A complete revamp of Minecraft's vanilla fishing mechanic
+version: 1.0-alpha
+website: https://github.com/amraleth/afr
+api-version: 1.21.5
