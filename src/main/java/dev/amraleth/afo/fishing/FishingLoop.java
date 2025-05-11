@@ -104,8 +104,7 @@ public class FishingLoop {
             fishingSpeed += attributes.get(FishingAttribute.FISHING_SPEED);
         }
 
-        // linear scaling from 10s to 2.5s over 0 - 500 fishing speed
-        double timeToFull = 10.0 - (Math.min(fishingSpeed, 500) / 500.0) * 7.5;
+        double timeToFull = 10.0 - (Math.min(fishingSpeed, FishingAttribute.FISHING_SPEED.getMax()) / FishingAttribute.FISHING_SPEED.getMax()) * 7.5;
 
         float progressDelta = (float)(0.1 / timeToFull);
 

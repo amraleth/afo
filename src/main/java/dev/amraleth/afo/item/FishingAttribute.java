@@ -61,7 +61,7 @@ public enum FishingAttribute {
     /**
      * The cap of this stat
      */
-    private final int max;
+    private final double max;
 
     /**
      * Gets all attributes from an {@link ItemStack}
