@@ -1,10 +1,13 @@
 package dev.amraleth.afr.item;
 
-import dev.amraleth.afr.AfrPlugin;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.NamespacedKey;
 
+/**
+ * Represents the different rarities a rod can have
+ *
+ * @author amraleth
+ */
 @RequiredArgsConstructor
 @Getter
 public enum RodRarity {
@@ -12,8 +15,6 @@ public enum RodRarity {
     RARE("<green>", "Rare", 2),
     LEGENDARY("<gold>", "Legendary", 3),
     ANCIENT("<red>", "Ancient", 4);
-
-    public static final NamespacedKey NAMESPACE_ROD_RARITY = new NamespacedKey(AfrPlugin.NAMESPACE, "rod_rarity");
 
     private final String color;
     private final String name;

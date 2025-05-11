@@ -4,8 +4,11 @@ import dev.amraleth.afr.AfrPlugin;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,8 +17,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Used for building rod related {@link ItemStack}s
+ *
+ * @author amraleth
+ */
 @Getter
 public class FishingRodBuilder {
+    public static final NamespacedKey NAMESPACE_AFR_ROD = new NamespacedKey(AfrPlugin.NAMESPACE, "afr_rod");
+
     private final @NotNull List<String> lore;
     private @NotNull RodRarity rodRarity;
     private @Nullable String name;
@@ -49,7 +59,12 @@ public class FishingRodBuilder {
 
     public ItemStack toItemStack() {
         ItemStack itemStack = new ItemStack(Material.FISHING_ROD);
+
         ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setUnbreakable(true);
+
+        PersistentDataContainer persistentDataContainer = itemMeta.getPersistentDataContainer();
+        persistentDataContainer.set(NAMESPACE_AFR_ROD, PersistentDataType.BOOLEAN, true);
 
         if (this.name != null) {
             itemMeta.displayName(AfrPlugin.MINI_MESSAGE.deserialize(
@@ -65,17 +80,27 @@ public class FishingRodBuilder {
 
         loreComponents.add(Component.text(" "));
 
-        this.attributes.forEach((attribute, value) -> loreComponents.add(AfrPlugin.MINI_MESSAGE.deserialize(
-                "<blue>" + attribute.getName() + "<gray>: <gray>+" + value + (attribute.isPercent() ? "%" : "")
-        )));
+        this.attributes.forEach((attribute, value) -> {
+            loreComponents.add(AfrPlugin.MINI_MESSAGE.deserialize(
+                    "<green>" + attribute.getName() + "<gray>: <gray>+" + value + (attribute.isPercent() ? "%" : "")
+            ));
+            persistentDataContainer.set(attribute.getKey(), PersistentDataType.INTEGER, value);
+        });
+
+        // last line
+        loreComponents.add(Component.text(" "));
 
         itemMeta.lore(loreComponents);
-
-        // todo: add all required
 
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
 
     // todo: add updating of rod items, like when adding enchants or power stones
+
+    public static boolean isAfrRod(@NotNull ItemStack itemStack) {
+        if (itemStack.getType() != Material.FISHING_ROD) return false;
+        if (!itemStack.hasItemMeta()) return false;
+        return itemStack.getPersistentDataContainer().getOrDefault(NAMESPACE_AFR_ROD, PersistentDataType.BOOLEAN, false);
+    }
 }

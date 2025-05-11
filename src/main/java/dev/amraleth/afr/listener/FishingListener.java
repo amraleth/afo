@@ -58,7 +58,7 @@ public class FishingListener implements Listener {
                 FishingLoop fishingLoop = new FishingLoop(this.afrPlugin, caster, fishingRod, System.currentTimeMillis());
                 this.fishingLoops.put(casterUUID, fishingLoop);
 
-                caster.setCooldown(Material.FISHING_ROD, 10);
+                caster.setCooldown(Material.FISHING_ROD, 20);
 
                 Bukkit.getScheduler().runTaskLater(this.afrPlugin, () -> {
                     if (!this.fishingLoops.containsKey(casterUUID)) return;

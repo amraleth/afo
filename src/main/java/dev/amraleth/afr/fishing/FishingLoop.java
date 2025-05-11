@@ -131,7 +131,7 @@ public class FishingLoop {
      * Used for reeling the rod in, triggers the {@link ReelInEvent} for calculating loot
      */
     public void reelRodIn() {
-        ReelInEvent reelInEvent = new ReelInEvent(player, player.getActiveItem(), this.progress, List.of(this.bossBar, this.bossBarTwo));
+        ReelInEvent reelInEvent = new ReelInEvent(player, player.getInventory().getItemInMainHand(), this.progress, List.of(this.bossBar, this.bossBarTwo));
         this.afrPlugin.getPluginManager().callEvent(reelInEvent);
         stopFishingLoop();
     }
