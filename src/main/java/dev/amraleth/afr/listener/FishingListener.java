@@ -66,11 +66,9 @@ public class FishingListener implements Listener {
                         event.setCancelled(true);
                         hook.remove();
                         this.fishingLoops.remove(casterUUID);
-                        AfrPlugin.sendDebugMessage("Player {} cast rod on material {}.", caster.getName(), blockBelow.getType());
                         return;
                     }
 
-                    AfrPlugin.sendDebugMessage("Player {} is casting a fishing rod {}.", caster.getName(), fishingRod.getItemMeta().itemName().toString());
                     fishingLoop.startFishingLoop();
                 }, 10L);
                 break;
@@ -120,11 +118,10 @@ public class FishingListener implements Listener {
 
     @EventHandler
     public void onReelIn(@NotNull ReelInEvent event) {
-        AfrPlugin.sendDebugMessage("Reel in event by {}.", event.getPlayer().getName());
-
         float progress = event.getReelInProgress();
         Player player = event.getPlayer();
 
+        // todo: do actual loot calculation
         if (progress >= 0.45f && progress <= 0.55f) {
             player.sendMessage(Component.text("Oi a catch!", NamedTextColor.GREEN));
         } else {

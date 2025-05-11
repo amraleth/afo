@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
  * Main class of the Amraleth's Fishing Revamp plugin
  *
  * @author amraleth
- * @since 1.0-alpha
  */
 public class AfrPlugin extends JavaPlugin {
     public static final Logger LOGGER;

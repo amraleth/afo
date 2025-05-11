@@ -9,30 +9,70 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+/**
+ * Represents a fishing loop that happens after a rod has been cast
+ *
+ * @author amraleth
+ */
 @Getter
 public class FishingLoop {
+    /**
+     * The player that cast the fishing rod
+     */
     private final Player player;
+
+    /**
+     * The item of the fishing rod
+     */
     private final ItemStack rodItemStack;
+
+    /**
+     * An instance of the main class, used for registering schedulers and calling events
+     */
     private final AfrPlugin afrPlugin;
+
+    /**
+     * When the loop was created, not started (!)
+     */
     private final long startedAt;
 
+    // two bars for the quicktime event
     private final BossBar bossBar;
     private final BossBar bossBarTwo;
 
+    /**
+     * The runnable that runs the quicktime animation
+     */
     private BukkitRunnable runnable;
+
+    // minor things used for calculating the current quicktime progress
     private boolean increasing = true;
     private float progress = 0.0f;
+
+    /**
+     * If the loop is running
+     */
     private boolean isActive = false;
 
+    /**
+     * If the loop was stopped because of a player reeling the rod in before the ten tick waiting time
+     */
     @Setter
     private boolean stopped = false;
 
+    /**
+     * @param afrPlugin    An instance of the main plugin
+     * @param player       The player to cast this loop for
+     * @param rodItemStack The rod item stack
+     * @param startedAt    When the loop was created
+     */
     public FishingLoop(@NotNull AfrPlugin afrPlugin, @NotNull Player player, @NotNull ItemStack rodItemStack, long startedAt) {
         this.afrPlugin = afrPlugin;
         this.player = player;
@@ -45,10 +85,12 @@ public class FishingLoop {
         this.bossBarTwo = BossBar.bossBar(Component.text(""), 1.0f, BossBar.Color.BLUE, BossBar.Overlay.PROGRESS);
     }
 
+    /**
+     * Starts a new fishing loop and quicktime animation
+     */
     public void startFishingLoop() {
         if (this.isActive) return;
 
-        AfrPlugin.sendDebugMessage("Starting fishing loop for player {}.", player.getName());
         player.showBossBar(this.bossBar);
         player.showBossBar(this.bossBarTwo);
 
@@ -85,12 +127,18 @@ public class FishingLoop {
         this.runnable.runTaskTimer(this.afrPlugin, 0L, 2L);
     }
 
+    /**
+     * Used for reeling the rod in, triggers the {@link ReelInEvent} for calculating loot
+     */
     public void reelRodIn() {
         ReelInEvent reelInEvent = new ReelInEvent(player, player.getActiveItem(), this.progress, List.of(this.bossBar, this.bossBarTwo));
         this.afrPlugin.getPluginManager().callEvent(reelInEvent);
         stopFishingLoop();
     }
 
+    /**
+     * Stops the fishing loop
+     */
     public void stopFishingLoop() {
         if (this.runnable != null) runnable.cancel();
         this.player.hideBossBar(this.bossBar);

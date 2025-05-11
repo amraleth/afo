@@ -17,7 +17,6 @@ import java.util.List;
  * A custom event triggered when a rod is reeled in
  *
  * @author amraleth
- * @since 1.0-alpha
  */
 @RequiredArgsConstructor
 @Getter
