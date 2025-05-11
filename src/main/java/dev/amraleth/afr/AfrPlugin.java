@@ -2,6 +2,8 @@ package dev.amraleth.afr;
 
 import dev.amraleth.afr.listener.FishingListener;
 import lombok.Getter;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +20,12 @@ public class AfrPlugin extends JavaPlugin {
     public static final Logger LOGGER;
     public static final String VERSION;
     public static final Boolean IS_DEBUG;
+
+    public static final String NAMESPACE = "afr";
+
+    public static final MiniMessage MINI_MESSAGE = MiniMessage.builder()
+            .postProcessor(comp -> comp.decoration(TextDecoration.ITALIC, false))
+            .build();
 
     static {
         LOGGER = LoggerFactory.getLogger(AfrPlugin.class);

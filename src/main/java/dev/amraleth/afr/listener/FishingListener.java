@@ -3,6 +3,8 @@ package dev.amraleth.afr.listener;
 import dev.amraleth.afr.AfrPlugin;
 import dev.amraleth.afr.event.ReelInEvent;
 import dev.amraleth.afr.fishing.FishingLoop;
+import dev.amraleth.afr.fishing.FishingReward;
+import dev.amraleth.afr.item.BaseRodItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
@@ -17,6 +19,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -123,9 +126,15 @@ public class FishingListener implements Listener {
 
         // todo: do actual loot calculation
         if (progress >= 0.45f && progress <= 0.55f) {
-            player.sendMessage(Component.text("Oi a catch!", NamedTextColor.GREEN));
+            FishingReward fishingReward = new FishingReward(event.getRodItem(), player);
+            fishingReward.calculateFishingReward();
         } else {
             player.sendMessage(Component.text("Missed catch!", NamedTextColor.RED));
         }
+    }
+
+    @EventHandler
+    public void onJoin(@NotNull PlayerJoinEvent playerJoinEvent) {
+        playerJoinEvent.getPlayer().getInventory().setItem(1, BaseRodItems.STARTER_ROD());
     }
 }
