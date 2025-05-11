@@ -1,6 +1,6 @@
 package dev.amraleth.afr.fishing;
 
-import dev.amraleth.afr.AfrPlugin;
+import dev.amraleth.afr.AfoPlugin;
 import dev.amraleth.afr.event.ReelInEvent;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,6 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +35,7 @@ public class FishingLoop {
     /**
      * An instance of the main class, used for registering schedulers and calling events
      */
-    private final AfrPlugin afrPlugin;
+    private final AfoPlugin afoPlugin;
 
     /**
      * When the loop was created, not started (!)
@@ -68,13 +67,13 @@ public class FishingLoop {
     private boolean stopped = false;
 
     /**
-     * @param afrPlugin    An instance of the main plugin
+     * @param afoPlugin    An instance of the main plugin
      * @param player       The player to cast this loop for
      * @param rodItemStack The rod item stack
      * @param startedAt    When the loop was created
      */
-    public FishingLoop(@NotNull AfrPlugin afrPlugin, @NotNull Player player, @NotNull ItemStack rodItemStack, long startedAt) {
-        this.afrPlugin = afrPlugin;
+    public FishingLoop(@NotNull AfoPlugin afoPlugin, @NotNull Player player, @NotNull ItemStack rodItemStack, long startedAt) {
+        this.afoPlugin = afoPlugin;
         this.player = player;
         this.startedAt = startedAt;
         if (rodItemStack.getType() != Material.FISHING_ROD) {
@@ -124,7 +123,7 @@ public class FishingLoop {
             }
         };
 
-        this.runnable.runTaskTimer(this.afrPlugin, 0L, 2L);
+        this.runnable.runTaskTimer(this.afoPlugin, 0L, 2L);
     }
 
     /**
@@ -132,7 +131,7 @@ public class FishingLoop {
      */
     public void reelRodIn() {
         ReelInEvent reelInEvent = new ReelInEvent(player, player.getInventory().getItemInMainHand(), this.progress, List.of(this.bossBar, this.bossBarTwo));
-        this.afrPlugin.getPluginManager().callEvent(reelInEvent);
+        this.afoPlugin.getPluginManager().callEvent(reelInEvent);
         stopFishingLoop();
     }
 

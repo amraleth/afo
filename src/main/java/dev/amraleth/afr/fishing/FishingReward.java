@@ -1,6 +1,6 @@
 package dev.amraleth.afr.fishing;
 
-import dev.amraleth.afr.AfrPlugin;
+import dev.amraleth.afr.AfoPlugin;
 import dev.amraleth.afr.item.FishingAttribute;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.entity.Player;
@@ -24,8 +24,8 @@ public class FishingReward {
     private final Player player;
 
     public void calculateFishingReward() {
-        if (AfrPlugin.IS_DEBUG) {
-            AfrPlugin.sendDebugMessage("Rewarding rod catch of {} with stats {}",
+        if (AfoPlugin.IS_DEBUG) {
+            AfoPlugin.sendDebugMessage("Rewarding rod catch of {} with stats {}",
                     player.getName(),
                     FishingAttribute.getAttributesFromItem(rodItemStack));
         }

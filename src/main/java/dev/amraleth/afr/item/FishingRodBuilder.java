@@ -1,6 +1,6 @@
 package dev.amraleth.afr.item;
 
-import dev.amraleth.afr.AfrPlugin;
+import dev.amraleth.afr.AfoPlugin;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Getter
 public class FishingRodBuilder {
-    public static final NamespacedKey NAMESPACE_AFR_ROD = new NamespacedKey(AfrPlugin.NAMESPACE, "afr_rod");
+    public static final NamespacedKey NAMESPACE_AFR_ROD = new NamespacedKey(AfoPlugin.NAMESPACE, "afr_rod");
 
     private final @NotNull List<String> lore;
     private @NotNull RodRarity rodRarity;
@@ -67,21 +67,21 @@ public class FishingRodBuilder {
         persistentDataContainer.set(NAMESPACE_AFR_ROD, PersistentDataType.BOOLEAN, true);
 
         if (this.name != null) {
-            itemMeta.displayName(AfrPlugin.MINI_MESSAGE.deserialize(
+            itemMeta.displayName(AfoPlugin.MINI_MESSAGE.deserialize(
                     this.rodRarity.getColor() + this.name
             ));
         }
 
         List<Component> loreComponents = new ArrayList<>();
-        loreComponents.add(AfrPlugin.MINI_MESSAGE.deserialize(this.rodRarity.getColor() + this.rodRarity.getName() + " Fishing Rod"));
+        loreComponents.add(AfoPlugin.MINI_MESSAGE.deserialize(this.rodRarity.getColor() + this.rodRarity.getName() + " Fishing Rod"));
         loreComponents.add(Component.text(" "));
 
-        this.lore.forEach(line -> loreComponents.add(AfrPlugin.MINI_MESSAGE.deserialize(line)));
+        this.lore.forEach(line -> loreComponents.add(AfoPlugin.MINI_MESSAGE.deserialize(line)));
 
         loreComponents.add(Component.text(" "));
 
         this.attributes.forEach((attribute, value) -> {
-            loreComponents.add(AfrPlugin.MINI_MESSAGE.deserialize(
+            loreComponents.add(AfoPlugin.MINI_MESSAGE.deserialize(
                     "<green>" + attribute.getName() + "<gray>: <gray>+" + value + (attribute.isPercent() ? "%" : "")
             ));
             persistentDataContainer.set(attribute.getKey(), PersistentDataType.INTEGER, value);

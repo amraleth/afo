@@ -12,11 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Main class of the Amraleth's Fishing Revamp plugin
+ * Main class of the Amraleth's Fishing Overhaul plugin
  *
  * @author amraleth
  */
-public class AfrPlugin extends JavaPlugin {
+public class AfoPlugin extends JavaPlugin {
     public static final Logger LOGGER;
     public static final String VERSION;
     public static final Boolean IS_DEBUG;
@@ -28,7 +28,7 @@ public class AfrPlugin extends JavaPlugin {
             .build();
 
     static {
-        LOGGER = LoggerFactory.getLogger(AfrPlugin.class);
+        LOGGER = LoggerFactory.getLogger(AfoPlugin.class);
         VERSION = "1.0-alpha";
         //IS_DEBUG = System.getenv("AFR_DEBUG") != null;
         IS_DEBUG = true;

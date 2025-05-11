@@ -1,6 +1,6 @@
 package dev.amraleth.afr.listener;
 
-import dev.amraleth.afr.AfrPlugin;
+import dev.amraleth.afr.AfoPlugin;
 import dev.amraleth.afr.event.ReelInEvent;
 import dev.amraleth.afr.fishing.FishingLoop;
 import dev.amraleth.afr.fishing.FishingReward;
@@ -29,15 +29,14 @@ import java.util.*;
  * Main class to listen for events regarding the usage of a fishing rod
  *
  * @author amraleth
- * @since 1.0-alpha
  */
 public class FishingListener implements Listener {
     private final Map<UUID, FishingLoop> fishingLoops;
 
-    private final AfrPlugin afrPlugin;
+    private final AfoPlugin afoPlugin;
 
-    public FishingListener(@NotNull AfrPlugin afrPlugin) {
-        this.afrPlugin = afrPlugin;
+    public FishingListener(@NotNull AfoPlugin afoPlugin) {
+        this.afoPlugin = afoPlugin;
         this.fishingLoops = new HashMap<>();
     }
 
@@ -55,12 +54,12 @@ public class FishingListener implements Listener {
                 ItemStack fishingRod = caster.getInventory().getItemInMainHand();
                 UUID casterUUID = caster.getUniqueId();
 
-                FishingLoop fishingLoop = new FishingLoop(this.afrPlugin, caster, fishingRod, System.currentTimeMillis());
+                FishingLoop fishingLoop = new FishingLoop(this.afoPlugin, caster, fishingRod, System.currentTimeMillis());
                 this.fishingLoops.put(casterUUID, fishingLoop);
 
                 caster.setCooldown(Material.FISHING_ROD, 20);
 
-                Bukkit.getScheduler().runTaskLater(this.afrPlugin, () -> {
+                Bukkit.getScheduler().runTaskLater(this.afoPlugin, () -> {
                     if (!this.fishingLoops.containsKey(casterUUID)) return;
                     FishHook hook = event.getHook();
                     Block blockBelow = hook.getLocation().subtract(0, 0.3, 0).getBlock();

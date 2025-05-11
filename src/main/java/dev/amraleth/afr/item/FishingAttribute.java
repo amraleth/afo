@@ -1,6 +1,6 @@
 package dev.amraleth.afr.item;
 
-import dev.amraleth.afr.AfrPlugin;
+import dev.amraleth.afr.AfoPlugin;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.NamespacedKey;
@@ -27,22 +27,22 @@ public enum FishingAttribute {
     /**
      * Decreases the duration of the quicktime event
      */
-    FISHING_SPEED(new NamespacedKey(AfrPlugin.NAMESPACE, "attribute_fishing_speed"), "Fishing Speed", false),
+    FISHING_SPEED(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_fishing_speed"), "Fishing Speed", false),
 
     /**
      * Increases the chance for rare creatures to spawn
      */
-    LURE_OF_THE_DEEP(new NamespacedKey(AfrPlugin.NAMESPACE, "attribute_lure_of_the_deep"), "Lure of the Deep", false),
+    LURE_OF_THE_DEEP(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_lure_of_the_deep"), "Lure of the Deep", false),
 
     /**
      * Increases the odds to finding rare sea creatures
      */
-    TRESSURE_CHANCE(new NamespacedKey(AfrPlugin.NAMESPACE, "attribute_tressure_chance"), "Tressure Chance", true),
+    TRESSURE_CHANCE(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_tressure_chance"), "Tressure Chance", true),
 
     /**
      * Increases the odds to catch two times with one hook
      */
-    MULTI_CATCH(new NamespacedKey(AfrPlugin.NAMESPACE, "attribute_multi_catch"), "Multicatch", true);
+    MULTI_CATCH(new NamespacedKey(AfoPlugin.NAMESPACE, "attribute_multi_catch"), "Multicatch", true);
 
     /**
      * The key under which the attribute is stored
